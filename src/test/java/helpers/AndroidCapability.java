@@ -27,7 +27,7 @@ public class AndroidCapability extends Environment {
         Thread.sleep(20000);
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
-        File file = new File("C:\\Automation\\AppiumRelated\\App\\MyO2_v8.7.2_apkpure.com.apk");
+        File file = new File("App\\MyO2_v8.7.2_apkpure.com.apk");
         capabilities.setCapability("app",file.getAbsoluteFile());
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
