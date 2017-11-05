@@ -56,37 +56,116 @@ public class E2EOrderPlaced_Steps {
      */
 
 
-    @Given("^I am an CFA user and Lands on shop page$")
-    public void i_am_an_CFA_user_and_Lands_on_shop_page() throws Throwable {
-        try {
-          //  ShopLandingPageAction.GetTitle();
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            System.out.println("unable to get title");
-            Assert.fail("unable to get title");
-        }
-
+    @Given("^I am an CFA user and Lands on Mobile shop page$")
+    public void i_am_an_CFA_user_and_Lands_on_Mobile_shop_page() throws Throwable {
+        String title = driver.getTitle();
+        System.out.println(title);
     }
 
-    @And("^navigate to PAYM Phones page$")
-    public void navigate_to_PAYM_Phones_page() throws Throwable {
+    @And("^navigate to PayG SIMO page in Mobile$")
+    public void navigate_to_PayG_SIMO_page_in_Mobile() throws Throwable {
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         try {
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-            PageFactory.initElements(driver, MouseHoverPage.class);
-
-            MouseHoverAction.PayMPhonesLandingPage();
-            Autoredirection.redirect();
-            Thread.sleep(10000);
-            GlobalActions.CommonFunctions.checkTitle("PayM Phones Page");
-
+            MouseHoverAction.MobilePayGSimLandingPage();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("unable to do mousehover to phones");
-            Assert.fail("unable to do mousehover to phones");
+            driver.findElement(By.xpath("//*[@id='no']/span")).click();
         }
     }
 
+    @And("^Tap on iPads and Tablets Tab$")
+    public void tap_on_iPads_and_Tabets_Tab() throws Throwable {
+        try {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            PageFactory.initElements(driver, FreeSimPage.class);
+            FreeSimPageActions.Mobile_iPadsandTabletstab();
+        } catch (Exception e) {
+            driver.findElement(By.xpath("//*[@id='no']/span")).click();
+        }
 
+    }
+
+    @And("^Pick a Sim ([^\"]*) and ([^\"]*)$")
+    public void tap_on_iPad_Sims_Pick_a_Sim(String SurferType, String SimType) throws Throwable {
+        try {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            PageFactory.initElements(driver, FreeSimPage.class);
+            FreeSimPageActions.selectSurfertypeAndSimtype(SurferType, SimType);
+        } catch (Exception e) {
+            Assert.fail("unable to pick sim");
+        }
+
+    }
+
+
+    @And("^Verify user is navigated to Delivery details page$")
+    public void verify_user_is_navigated_to_Delivery_details_page() throws Throwable {
+        try {
+            String title = driver.getTitle();
+            System.out.println(title);
+        } catch (Exception e) {
+            Assert.fail("unable to verify delivery details page");
+        }
+    }
+
+    @And("^input the below details in Free Sim Delivery page$")
+    public void Freesim_inputDetailsDeliveryPage(DataTable userData) throws Throwable {
+        try {
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            PageFactory.initElements(driver, DeliveryPage.class);
+            DeliveryPageActions.SetDelivery_Datatable(userData);
+            Thread.sleep(5000);
+            DeliveryPageActions.AboutYou_Datatable_FreeSim(userData);
+            Thread.sleep(2000);
+            DeliveryPageActions.MobileClickContinue();
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            System.out.println("Unable to input details in delivery page");
+            Assert.fail("Unable to input details in delivery page");
+        }
+    }
+
+    @Then("^Free Sim order confirmation is displayed$")
+    public void free_Sim_order_confirmation_is_displayed() throws Throwable {
+
+        try {
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            PageFactory.initElements(driver, OrderConfirmationPage.class);
+            OrderConfirmationPageActions.gettitlepage();
+            OrderConfirmationPageActions.FreeSimMessage();
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            System.out.println("Error in order confirmation page , Please review the screenshots for failure");
+            Assert.fail("Error in order confirmation page , Please review the screenshots for failure");
+
+        }
+
+
+    }
+
+    @Given("^I am an existing user and Lands MyO2 app$")
+    public void iAmAnExistingUserAndLandsMyOApp() throws Throwable {
+        //try {
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            //PageFactory.initElements(driver, OrderConfirmationPage.class);
+            MyO2LoginPageActions.login();
+            Thread.sleep(2000);
+      /*  } catch (Exception e) {
+            System.out.println("Error in Login page , Please review the screenshots for failure");
+            Assert.fail("Error in Login page , Please review the screenshots for failure");
+
+        }*/
+
+    }
+
+    @And("^Valid Username and Password$")
+    public void validUsernameAndPassword() throws Throwable {
+
+    }
+
+    @And("^Login to MyO2 app$")
+    public void loginToMyOApp() throws Throwable {
+
+    }
 }
 

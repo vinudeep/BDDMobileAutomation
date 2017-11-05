@@ -3,10 +3,7 @@ package steps;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import helpers.AndroidCapability;
-import helpers.BrowserHelper;
-import helpers.Environment;
-import helpers.Filereadingutility;
+import helpers.*;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -96,7 +93,11 @@ public class Hooks extends Environment {
 
 		}
 		Thread.sleep(2000);
-		capability.stopAppiumServer();
+		//capability.stopAppiumServer();
+		/*AppiumServerJava appiumServer = new AppiumServerJava();
+		appiumServer.stopServer();*/
+//		capability.stopAppiumServer();
+		log.debug("Stopped Appium server");
 		driver.close();
 		driver.quit();
 
