@@ -8,7 +8,6 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -20,13 +19,6 @@ public class AndroidCapability extends Environment {
     final static Logger log = Logger.getLogger("AndroidCapability");
 
     public void startApp() throws Exception {
-        //Below is starting Appium server from command line
-
-      /*  AppiumServerJava_cmdLine serverStart = new AppiumServerJava_cmdLine();
-        System.out.println("Going to start appium server from cmd line");
-        serverStart.startServer();*/
-
-        //Below is starting appium server without command line
 
         AppiumServerJava appiumServer = new AppiumServerJava();
 
@@ -45,31 +37,24 @@ public class AndroidCapability extends Environment {
         String relativePath = System.getProperty("user.dir");
         log.debug("The Relative path of the user.dir" + relativePath);
 
-        String EnvPropFilePath = relativePath + "\\Configurations\\Properties\\AppConfig.properties";
+        String EnvPropFilePath = relativePath + "/Configurations/Properties/AppConfig.properties";
         log.debug("The Env prop path is " + EnvPropFilePath);
 
         String appPath = Filereadingutility.getPropertyValue(EnvPropFilePath, "appName");
         log.debug("The App which will be used for testing is " + appPath);
 
-        // File file = new File("App\\MyO2_v8.7.2_apkpure.com.apk");
         File file = new File("App\\" + appPath);
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
         //capabilities.setCapability("app", file.getAbsoluteFile());
         capabilities.setCapability("app", file.getAbsoluteFile());
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-
     }
 
     public void startMobileWeb() throws Exception {
 
-        //Below is starting Appium server from command line
 
-      /*  AppiumServerJava_cmdLine serverStart = new AppiumServerJava_cmdLine();
-        System.out.println("Going to start appium server from cmd line");
-        serverStart.startServer();*/
-
-        //Below is starting appium server without command line
 
         AppiumServerJava appiumServer = new AppiumServerJava();
 

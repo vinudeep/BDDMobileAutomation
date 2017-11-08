@@ -30,7 +30,7 @@ public class AppiumServerJava {
 		builder.usingPort(4723);
 		builder.withCapabilities(cap);
 		builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
-		builder.withArgument(GeneralServerFlag.LOG_LEVEL,"info");
+		builder.withArgument(GeneralServerFlag.LOG_LEVEL,"error");
 		
 		//Start the server with the builder
 		service = AppiumDriverLocalService.buildService(builder);
@@ -38,6 +38,20 @@ public class AppiumServerJava {
 	}
 	
 	public void stopServer() {
+
+		cap = new DesiredCapabilities();
+		cap.setCapability("noReset", "false");
+
+		//Build the Appium service
+		builder = new AppiumServiceBuilder();
+		builder.withIPAddress("127.0.0.1");
+		builder.usingPort(4723);
+		builder.withCapabilities(cap);
+		builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
+		builder.withArgument(GeneralServerFlag.LOG_LEVEL,"info");
+
+		//Start the server with the builder
+		service = AppiumDriverLocalService.buildService(builder);
 		service.stop();
 	}
 

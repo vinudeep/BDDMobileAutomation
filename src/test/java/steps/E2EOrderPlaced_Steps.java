@@ -9,6 +9,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import helpers.Filereadingutility;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -31,6 +33,7 @@ public class E2EOrderPlaced_Steps {
 
     private static final String Filteroption = null;
     public WebDriver driver;
+    public static AndroidDriver<AndroidElement> andDriver;
     public List<HashMap<String, String>> datamap;
     String FilterDataOption = null;
     LinkedList<String> expectedListBeforeSort = null;
@@ -143,29 +146,64 @@ public class E2EOrderPlaced_Steps {
 
     }
 
-    @Given("^I am an existing user and Lands MyO2 app$")
+    @Given("^I am an existing user and Launch MyO2 app$")
     public void iAmAnExistingUserAndLandsMyOApp() throws Throwable {
-        //try {
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-            //PageFactory.initElements(driver, OrderConfirmationPage.class);
-            MyO2LoginPageActions.login();
-            Thread.sleep(2000);
-      /*  } catch (Exception e) {
-            System.out.println("Error in Login page , Please review the screenshots for failure");
-            Assert.fail("Error in Login page , Please review the screenshots for failure");
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        System.out.println("In MyO2 app");
+       // driver.getTitle();
+        Thread.sleep(2000);
 
-        }*/
 
     }
 
-    @And("^Valid Username and Password$")
-    public void validUsernameAndPassword() throws Throwable {
+
+    @When("^Entered Valid Username, Password and continue$")
+    public void enteredValidUsernamePasswordAndContinue() throws Throwable {
+        MyO2LoginPageActions.login();
+        Thread.sleep(2000);
+    }
+
+    @Then("^Enter valid Security code and Continue$")
+    public void enterValidSecurityCodeAndContinue() throws Throwable {
+        MyO2LoginPageActions.securityPassword();
+        Thread.sleep(3000);
+    }
+
+    @And("^Navigate through get started pages and Tap on get started button$")
+    public void navigateThroughGetStartedPagesAndTapOnGetStartedButton() throws Throwable {
 
     }
 
-    @And("^Login to MyO2 app$")
-    public void loginToMyOApp() throws Throwable {
+    @And("^land on My details page$")
+    public void landOnMyDetailsPage() throws Throwable {
 
+    }
+
+    @When("^I open the left navigation pane$")
+    public void iOpenTheLeftNavigationPane() throws Throwable {
+        Thread.sleep(6000);
+        MyO2LoginPageActions.openLeftNavigation();
+        Thread.sleep(3000);
+    }
+
+    @And("^Tap on Sign out$")
+    public void tapOnSignOut() throws Throwable {
+        Thread.sleep(6000);
+        MyO2LoginPageActions.signOut();
+        Thread.sleep(3000);
+    }
+
+    @Then("^I should be successfully Signout$")
+    public void iShouldBeSuccessfullySignout() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @And("^skip get started screen$")
+    public void skipGetStartedScreen() throws Throwable {
+        Thread.sleep(6000);
+        MyO2LoginPageActions.skip();
+        Thread.sleep(3000);
     }
 }
 
